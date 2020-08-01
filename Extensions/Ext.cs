@@ -1,11 +1,19 @@
-﻿using System;
+﻿using Android.Graphics;
+using System;
 using System.IO;
 using System.Threading.Tasks;
+using JavaMath = Java.Lang.Math;
 
 namespace Xamarin.Dfm.Extensions
 {
     public static class Ext
     {
+        public static int GetDisplayHeight(this Paint paint)
+        {
+            var fm = paint.GetFontMetrics();
+            var height = (int)JavaMath.Ceil(fm.Descent - fm.Ascent);
+            return height;
+        }
         public static int ToInt32(this object token)
         {
             try

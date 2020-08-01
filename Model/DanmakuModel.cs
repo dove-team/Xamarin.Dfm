@@ -44,9 +44,7 @@ namespace Xamarin.Dfm.Model
         public int x { get; set; } = 0;
         public int y { get; set; } = 0;
         public bool enable { get; set; } = true;
-        /// <summary>
-        /// 停留时间
-        /// </summary>
-        public int remind { get; set; } = 0;
+        public double displayTime { get; internal set; }
+        public double startpoint { get; internal set; }
     }
 }

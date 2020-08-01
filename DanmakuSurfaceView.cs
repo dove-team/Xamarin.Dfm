@@ -16,7 +16,8 @@ namespace Xamarin.Dfm
         public Random Random { get; }
         public int DefaultSize { get; set; }
         public ViewThread Thread { get; private set; }
-        public int BottomSize { get; }
+        public Tuple<int, int> TopRect { get; private set; }
+        public Tuple<int, int> BottomRect { get; private set; }
         private DanmakuType _DanmakuType;
         public DanmakuType DanmakuType
         {
@@ -41,8 +42,7 @@ namespace Xamarin.Dfm
             SetZOrderOnTop(true);
             Speed = 16;
             SetBackgroundColor(Color.Transparent);
-            Random = new Random();
-            BottomSize = StaticValue.WindowHeight / 3 * 2;
+            Random = new Random(1);
             Paint = new Paint
             {
                 AntiAlias = true,
@@ -50,6 +50,13 @@ namespace Xamarin.Dfm
                 TextSize = 36
             };
             Paint.SetShadowLayer(2, 1, 1, Color.Black);
+        }
+        protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
+        {
+            base.OnSizeChanged(w, h, oldw, oldh);
+            var pp = h / 3;
+            TopRect = new Tuple<int, int>(0, pp);
+            BottomRect = new Tuple<int, int>(h - pp, h);
         }
         public void Pause()
         {

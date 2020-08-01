@@ -65,12 +65,13 @@ namespace Xamarin.Dfm
                                                     case DanmakuLocation.Top:
                                                         {
                                                             Paint paint = InitPaint(model);
+                                                            if (model.startpoint == 0)
+                                                                model.startpoint = Time;
                                                             if (model.y == 0)
                                                             {
-                                                                var size = Convert.ToInt32(paint.TextSize * 1.1);
-                                                                var count = Convert.ToInt32(StaticValue.WindowHeight / 3 / size);
-                                                                SurfaceView.Random.Next(0, count);
-                                                                model.y = size * count;
+                                                                int height = paint.GetDisplayHeight(), hh = Convert.ToInt32(height * 1.2);
+                                                                Random random = new Random(hh);
+                                                                model.y = random.Next(SurfaceView.TopRect.Item1 + height, SurfaceView.TopRect.Item2 - height);
                                                             }
                                                             if (model.x == 0)
                                                             {
@@ -78,21 +79,22 @@ namespace Xamarin.Dfm
                                                                 Convert.ToInt32(SurfaceView.Paint.MeasureText(model.text));
                                                             }
                                                             canvas.DrawText(model.text, model.x, model.y, paint);
-                                                            if (model.remind == 0)
+                                                            if (model.displayTime - 5 >= model.startpoint)
                                                                 model.enable = false;
                                                             else
-                                                                model.remind--;
+                                                                model.displayTime = Time;
                                                             break;
                                                         }
                                                     case DanmakuLocation.Bottom:
                                                         {
                                                             Paint paint = InitPaint(model);
+                                                            if (model.startpoint == 0)
+                                                                model.startpoint = Time;
                                                             if (model.y == 0)
                                                             {
-                                                                var size = Convert.ToInt32(paint.TextSize * 1.1);
-                                                                var count = Convert.ToInt32(StaticValue.WindowHeight / 3 / size);
-                                                                SurfaceView.Random.Next(0, count);
-                                                                model.y = SurfaceView.BottomSize + (size * count);
+                                                                int height = paint.GetDisplayHeight(), hh = Convert.ToInt32(height * 1.2);
+                                                                Random random = new Random(hh);
+                                                                model.y = random.Next(SurfaceView.TopRect.Item1 + height, SurfaceView.TopRect.Item2 - height);
                                                             }
                                                             if (model.x == 0)
                                                             {
@@ -100,10 +102,10 @@ namespace Xamarin.Dfm
                                                                 Convert.ToInt32(SurfaceView.Paint.MeasureText(model.text));
                                                             }
                                                             canvas.DrawText(model.text, model.x, model.y, paint);
-                                                            if (model.remind == 0)
+                                                            if (model.displayTime - 5 >= model.startpoint)
                                                                 model.enable = false;
                                                             else
-                                                                model.remind--;
+                                                                model.displayTime = Time;
                                                             break;
                                                         }
                                                     case DanmakuLocation.Position:
@@ -116,8 +118,8 @@ namespace Xamarin.Dfm
                                                             Paint paint = InitPaint(model);
                                                             if (model.y == 0)
                                                             {
-                                                                var size = Convert.ToInt32(paint.TextSize);
-                                                                model.y = size + SurfaceView.Random.Next(SurfaceView.Height - size);
+                                                                int height = paint.GetDisplayHeight();
+                                                                model.y = height + SurfaceView.Random.Next(SurfaceView.Height - height);
                                                             }
                                                             if (model.x == 0)
                                                                 model.x = SurfaceView.Width + Convert.ToInt32(System.Math.Ceiling(paint.MeasureText(model.text)) * 1.2);
@@ -144,10 +146,11 @@ namespace Xamarin.Dfm
                                     if (canvas == null)
                                         break;
                                     canvas.DrawColor(Color.Transparent, PorterDuff.Mode.Clear);
-                                    foreach (var model in SurfaceView.DanmuMsgModels)
+                                    for (var index = 0; index < SurfaceView.DanmuMsgModels.Count; index++)
                                     {
                                         try
                                         {
+                                            var model = SurfaceView.DanmuMsgModels[index];
                                             if (model.y == 0)
                                             {
                                                 var size = Convert.ToInt32(SurfaceView.Paint.TextSize);
