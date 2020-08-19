@@ -46,5 +46,6 @@
         /// 显示的垂直位置
         /// </summary>
         public int y { get; internal set; }
+        public float w { get; set; }
     }
 }

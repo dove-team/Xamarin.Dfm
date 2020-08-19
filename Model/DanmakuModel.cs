@@ -46,5 +46,6 @@ namespace Xamarin.Dfm.Model
         public bool enable { get; set; } = true;
         public double displayTime { get; internal set; }
         public double startpoint { get; internal set; }
+        public float w { get; set; }
     }
 }

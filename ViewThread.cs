@@ -69,14 +69,14 @@ namespace Xamarin.Dfm
                                                                 model.startpoint = Time;
                                                             if (model.y == 0)
                                                             {
-                                                                int height = paint.GetDisplayHeight(), hh = Convert.ToInt32(height * 1.2);
-                                                                Random random = new Random(hh);
-                                                                model.y = random.Next(SurfaceView.TopRect.Item1 + height, SurfaceView.TopRect.Item2 - height);
+                                                                int height = paint.GetDisplayHeight(), halfheight = height / 2;
+                                                                var count = Convert.ToInt32(SurfaceView.Rect / height);
+                                                                model.y = SurfaceView.Random.Next(1, count) * height;
                                                             }
                                                             if (model.x == 0)
                                                             {
-                                                                model.x = Convert.ToInt32(StaticValue.WindowWidth / 2) -
-                                                                Convert.ToInt32(SurfaceView.Paint.MeasureText(model.text));
+                                                                var width = paint.MeasureText(model.text);
+                                                                model.x = Convert.ToInt32((SurfaceView.Width - width) / 2);
                                                             }
                                                             canvas.DrawText(model.text, model.x, model.y, paint);
                                                             if (model.displayTime - 5 >= model.startpoint)
@@ -92,14 +92,14 @@ namespace Xamarin.Dfm
                                                                 model.startpoint = Time;
                                                             if (model.y == 0)
                                                             {
-                                                                int height = paint.GetDisplayHeight(), hh = Convert.ToInt32(height * 1.2);
-                                                                Random random = new Random(hh);
-                                                                model.y = random.Next(SurfaceView.TopRect.Item1 + height, SurfaceView.TopRect.Item2 - height);
+                                                                int height = paint.GetDisplayHeight(), halfheight = height / 2;
+                                                                var count = Convert.ToInt32(SurfaceView.Rect / height);
+                                                                model.y = (SurfaceView.Random.Next(1, count) * height) + SurfaceView.Rect;
                                                             }
                                                             if (model.x == 0)
                                                             {
-                                                                model.x = Convert.ToInt32(StaticValue.WindowWidth / 2) -
-                                                                Convert.ToInt32(SurfaceView.Paint.MeasureText(model.text));
+                                                                var width = paint.MeasureText(model.text);
+                                                                model.x = Convert.ToInt32((SurfaceView.Width - width) / 2);
                                                             }
                                                             canvas.DrawText(model.text, model.x, model.y, paint);
                                                             if (model.displayTime - 5 >= model.startpoint)
@@ -122,9 +122,13 @@ namespace Xamarin.Dfm
                                                                 model.y = height + SurfaceView.Random.Next(SurfaceView.Height - height);
                                                             }
                                                             if (model.x == 0)
-                                                                model.x = SurfaceView.Width + Convert.ToInt32(System.Math.Ceiling(paint.MeasureText(model.text)) * 1.2);
+                                                            {
+                                                                var width = paint.MeasureText(model.text);
+                                                                model.w = -width;
+                                                                model.x = Convert.ToInt32((SurfaceView.Width + width) * 1.2);
+                                                            }
                                                             canvas.DrawText(model.text, model.x -= model.Speed, model.y, paint);
-                                                            if (model.x <= 0 && model.y != 0)
+                                                            if (model.x < model.w && model.y != 0)
                                                                 model.enable = false;
                                                             break;
                                                         }
@@ -140,12 +144,12 @@ namespace Xamarin.Dfm
                             }
                         case DanmakuType.Live:
                             {
+                                var canvas = SurfaceView.Holder.LockCanvas();
+                                if (canvas == null)
+                                    break;
+                                canvas.DrawColor(Color.Transparent, PorterDuff.Mode.Clear);
                                 if (SurfaceView.DanmuMsgModels != null && SurfaceView.DanmuMsgModels.Count > 0)
                                 {
-                                    var canvas = SurfaceView.Holder.LockCanvas();
-                                    if (canvas == null)
-                                        break;
-                                    canvas.DrawColor(Color.Transparent, PorterDuff.Mode.Clear);
                                     for (var index = 0; index < SurfaceView.DanmuMsgModels.Count; index++)
                                     {
                                         try
@@ -153,20 +157,24 @@ namespace Xamarin.Dfm
                                             var model = SurfaceView.DanmuMsgModels[index];
                                             if (model.y == 0)
                                             {
-                                                var size = Convert.ToInt32(SurfaceView.Paint.TextSize);
-                                                model.y = size + SurfaceView.Random.Next(SurfaceView.Height - size);
+                                                int height = SurfaceView.Paint.GetDisplayHeight();
+                                                model.y = height + SurfaceView.Random.Next(SurfaceView.Height - height);
                                             }
                                             if (model.x == 0)
-                                                model.x = SurfaceView.Width + Convert.ToInt32(System.Math.Ceiling(SurfaceView.Paint.MeasureText(model.text)) * 1.2);
+                                            {
+                                                var width = SurfaceView.Paint.MeasureText(model.text);
+                                                model.w = -width;
+                                                model.x = Convert.ToInt32((SurfaceView.Width + width) * 1.2);
+                                            }
                                             canvas.DrawText(model.text, model.x -= SurfaceView.Speed, model.y, SurfaceView.Paint);
-                                            if (model.x <= 0 && model.y != 0)
+                                            if (model.x < model.w && model.y != 0)
                                                 SurfaceView.DanmuMsgModels.Remove(model);
                                         }
                                         catch { }
                                     }
-                                    SurfaceView.Holder.UnlockCanvasAndPost(canvas);
-                                    Sleep(16);
                                 }
+                                SurfaceView.Holder.UnlockCanvasAndPost(canvas);
+                                Sleep(16);
                                 break;
                             }
                     }
