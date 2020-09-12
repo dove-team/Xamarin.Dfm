@@ -18,12 +18,12 @@ namespace Xamarin.Dfm
         public ViewThread(DanmakuSurfaceView surfaceView)
         {
             SurfaceView = surfaceView;
-            Timer = new Timer(100);
+            Timer = new Timer(10);
             Timer.Elapsed += Timer_Elapsed;
         }
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Time += 0.1;
+            Time += 0.01;
         }
         protected override void Dispose(bool disposing)
         {
@@ -69,7 +69,7 @@ namespace Xamarin.Dfm
                                                                 model.startpoint = Time;
                                                             if (model.y == 0)
                                                             {
-                                                                int height = paint.GetDisplayHeight(), halfheight = height / 2;
+                                                                int height = paint.GetDisplayHeight();
                                                                 var count = Convert.ToInt32(SurfaceView.Rect / height);
                                                                 model.y = SurfaceView.Random.Next(1, count) * height;
                                                             }
@@ -92,7 +92,7 @@ namespace Xamarin.Dfm
                                                                 model.startpoint = Time;
                                                             if (model.y == 0)
                                                             {
-                                                                int height = paint.GetDisplayHeight(), halfheight = height / 2;
+                                                                int height = paint.GetDisplayHeight();
                                                                 var count = Convert.ToInt32(SurfaceView.Rect / height);
                                                                 model.y = (SurfaceView.Random.Next(1, count) * height) + SurfaceView.Rect;
                                                             }
@@ -125,7 +125,7 @@ namespace Xamarin.Dfm
                                                             {
                                                                 var width = paint.MeasureText(model.text);
                                                                 model.w = -width;
-                                                                model.x = Convert.ToInt32((SurfaceView.Width + width) * 1.2);
+                                                                model.x = (SurfaceView.Width + width).ToInt32();
                                                             }
                                                             canvas.DrawText(model.text, model.x -= model.Speed, model.y, paint);
                                                             if (model.x < model.w && model.y != 0)
