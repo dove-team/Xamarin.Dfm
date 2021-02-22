@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
 using Xamarin.Dfm.Converter;
-using Xamarin.Dfm.Extensions;
 
 namespace Xamarin.Dfm
 {
@@ -42,7 +42,7 @@ namespace Xamarin.Dfm
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogError("FromBuffer", ex);
+                Debug.WriteLine("FromBuffer" + ex.Message);
                 return default;
             }
         }

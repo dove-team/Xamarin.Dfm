@@ -4,6 +4,6 @@
     {
         public LiveDanmuTypes type { get; set; }
         public int viewer { get; set; }
-        public object value { get; set; }
+        public DanmuMsgModel value { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Android.Content;
 using Android.Graphics;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
-using Xamarin.Dfm.Extensions;
 using Xamarin.Dfm.Model;
 
 namespace Xamarin.Dfm
@@ -35,12 +35,7 @@ namespace Xamarin.Dfm
         public DanmakuSurfaceView(IntPtr handle, JniHandleOwnership transfer) : base(handle, transfer) { }
         public DanmakuSurfaceView(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
         {
-            Holder.AddCallback(this);
-            Holder.SetFormat(Format.Translucent);
-            SetZOrderOnTop(true);
             Speed = 16;
-            SetBackgroundColor(Color.Transparent);
-            Random = new Random(1);
             Paint = new Paint
             {
                 Color = Color.WhiteSmoke,
@@ -48,6 +43,11 @@ namespace Xamarin.Dfm
                 StrokeWidth = 2,
                 TextSize = 36
             };
+            SetZOrderOnTop(true);
+            Holder.AddCallback(this);
+            Random = new Random(1);
+            Holder.SetFormat(Format.Translucent);
+            SetBackgroundColor(Color.Transparent);
             Paint.SetShadowLayer(2, 1, 1, Color.Black);
         }
         protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
@@ -68,14 +68,11 @@ namespace Xamarin.Dfm
             try
             {
                 if (danmaku.type == LiveDanmuTypes.Danmu && DanmakuType == DanmakuType.Live)
-                {
-                    var model = danmaku.value as DanmuMsgModel;
-                    DanmuMsgModels.Add(model);
-                }
+                    DanmuMsgModels.Add(danmaku.value);
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogError("AddDanmaku", ex);
+                Debug.WriteLine("AddDanmaku" + ex.Message);
             }
         }
         public void SurfaceChanged(ISurfaceHolder holder, Format format, int width, int height) { }
@@ -88,7 +85,7 @@ namespace Xamarin.Dfm
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogError("SurfaceCreated", ex);
+                Debug.WriteLine("SurfaceCreated" + ex.Message);
             }
         }
         public void SurfaceDestroyed(ISurfaceHolder holder)

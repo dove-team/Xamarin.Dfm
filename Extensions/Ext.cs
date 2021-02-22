@@ -1,5 +1,6 @@
 ﻿using Android.Graphics;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using JavaMath = Java.Lang.Math;
@@ -56,7 +57,7 @@ namespace Xamarin.Dfm.Extensions
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogError("ReadBAsync", ex);
+                Debug.WriteLine("ReadBAsync" + ex.Message);
             }
         }
     }

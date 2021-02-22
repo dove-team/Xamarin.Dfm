@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
@@ -24,7 +25,7 @@ namespace Xamarin.Dfm
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogError("ParseBiliBili", ex);
+                Debug.WriteLine("ParseBiliBili" + ex.Message);
                 return null;
             }
         }
@@ -58,7 +59,6 @@ namespace Xamarin.Dfm
                             danmakus.Add(new DanmakuModel
                             {
                                 time = double.Parse(danmaku[0]),
-                                time_s = Convert.ToInt32(double.Parse(danmaku[0])),
                                 location = location,
                                 size = double.Parse(danmaku[2]),
                                 color = danmaku[3].ToColor(true),
@@ -73,14 +73,14 @@ namespace Xamarin.Dfm
                         }
                         catch (Exception ex)
                         {
-                            LogManager.Instance.LogError("ParseBiliBiliXml", ex);
+                            Debug.WriteLine("ParseBiliBiliXml" + ex.Message);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogError("ParseBiliBiliXml", ex);
+                Debug.WriteLine("ParseBiliBiliXml" + ex.Message);
             }
             return danmakus;
         }

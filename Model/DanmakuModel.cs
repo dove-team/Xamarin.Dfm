@@ -40,7 +40,6 @@ namespace Xamarin.Dfm.Model
         public DanmakuSite fromSite { get; set; }
         public string source { get; set; }
         public int Speed { get; set; } = 8;
-        public int time_s { get; set; }
         public int x { get; set; } = 0;
         public int y { get; set; } = 0;
         public bool enable { get; set; } = true;

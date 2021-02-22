@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 using Android.Graphics;
@@ -11,10 +12,10 @@ namespace Xamarin.Dfm
 {
     public sealed class ViewThread : Thread
     {
-        private double Time { get; set; } = 0;
         private Timer Timer { get; }
-        private DanmakuSurfaceView SurfaceView { get; }
+        private double Time { get; set; } = 0;
         public bool Runable { get; internal set; } = true;
+        private DanmakuSurfaceView SurfaceView { get; }
         public ViewThread(DanmakuSurfaceView surfaceView)
         {
             SurfaceView = surfaceView;
@@ -144,12 +145,12 @@ namespace Xamarin.Dfm
                             }
                         case DanmakuType.Live:
                             {
-                                var canvas = SurfaceView.Holder.LockCanvas();
-                                if (canvas == null)
-                                    break;
-                                canvas.DrawColor(Color.Transparent, PorterDuff.Mode.Clear);
                                 if (SurfaceView.DanmuMsgModels != null && SurfaceView.DanmuMsgModels.Count > 0)
                                 {
+                                    var canvas = SurfaceView.Holder.LockCanvas();
+                                    if (canvas == null)
+                                        break;
+                                    canvas.DrawColor(Color.Transparent, PorterDuff.Mode.Clear);
                                     for (var index = 0; index < SurfaceView.DanmuMsgModels.Count; index++)
                                     {
                                         try
@@ -172,16 +173,16 @@ namespace Xamarin.Dfm
                                         }
                                         catch { }
                                     }
+                                    SurfaceView.Holder.UnlockCanvasAndPost(canvas);
+                                    Sleep(16);
                                 }
-                                SurfaceView.Holder.UnlockCanvasAndPost(canvas);
-                                Sleep(16);
                                 break;
                             }
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogManager.Instance.LogError("ViewThread", ex);
+                    Debug.WriteLine("ViewThread" + ex.Message);
                 }
             }
         }

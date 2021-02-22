@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xamarin.Dfm.Extensions;
+using System.Diagnostics;
 using Xamarin.Dfm.Model;
 using JavaObject = Java.Lang.Object;
 
@@ -22,7 +22,7 @@ namespace Xamarin.Dfm
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogError("InitDanmu", ex);
+                Debug.WriteLine("InitDanmu" + ex.Message);
             }
         }
         public void ShowLiveDanmaku(LiveDanmuModel model)
@@ -49,7 +49,7 @@ namespace Xamarin.Dfm
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogError("SetState", ex);
+                Debug.WriteLine("SetState" + ex.Message);
             }
         }
         protected override void Dispose(bool disposing)
@@ -61,7 +61,7 @@ namespace Xamarin.Dfm
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogError("DanmakuAdapter>Dispose", ex);
+                Debug.WriteLine("DanmakuAdapter-Dispose" + ex.Message);
             }
         }
     }
