@@ -2,50 +2,50 @@
 {
     public sealed class DanmuMsgModel
     {
-        public string text { get; set; }
+        public string Text { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
-        public string username { get; set; }
+        public string UserName { get; set; }
         /// <summary>
         /// 等级
         /// </summary>
-        public string ul { get; set; }
+        public string Ul { get; set; }
         /// <summary>
         /// 等级颜色
         /// </summary>
-        public string ulColor { get; set; }
+        public string UlColor { get; set; }
         /// <summary>
         /// 头衔id
         /// </summary>
-        public string user_title { get; set; }
-        public string vip { get; set; }
+        public string UserTitle { get; set; }
+        public string Vip { get; set; }
         /// <summary>
         /// 勋章
         /// </summary>
-        public string medal_name { get; set; }
+        public string MedalName { get; set; }
         /// <summary>
         /// 勋章
         /// </summary>
-        public string medal_lv { get; set; }
+        public string MedalLv { get; set; }
         /// <summary>
         /// 勋章颜色
         /// </summary>
-        public string medalColor { get; set; }
-        public bool isAdmin { get; set; }
-        public bool isVip { get; set; }
-        public bool isBigVip { get; set; }
-        public bool hasMedal { get; set; }
-        public bool hasTitle { get; set; }
-        public bool hasUL { get; set; }
+        public string MedalColor { get; set; }
+        public bool IsAdmin { get; set; }
+        public bool IsVip { get; set; }
+        public bool IsBigVip { get; set; }
+        public bool HasMedal { get; set; }
+        public bool HasTitle { get; set; }
+        public bool HasUL { get; set; }
         /// <summary>
         /// 显示的水平位置
         /// </summary>
-        public int x { get; set; }
+        public int X { get; set; }
         /// <summary>
         /// 显示的垂直位置
         /// </summary>
-        public int y { get; internal set; }
-        public float w { get; set; }
+        public int Y { get; internal set; }
+        public float W { get; set; }
     }
 }

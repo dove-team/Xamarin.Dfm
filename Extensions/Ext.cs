@@ -45,12 +45,14 @@ namespace Xamarin.Dfm.Extensions
         {
             try
             {
-                if (offset + count > buffer.Length) throw new ArgumentException();
+                if (offset + count > buffer.Length)
+                    throw new ArgumentException();
                 int read = 0;
                 while (read < count)
                 {
                     var available = await stream.ReadAsync(buffer, offset, count - read);
-                    if (available == 0) throw new ObjectDisposedException(null);
+                    if (available == 0)
+                        throw new ObjectDisposedException(nameof(stream));
                     read += available;
                     offset += available;
                 }

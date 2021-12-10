@@ -55,24 +55,18 @@ namespace Xamarin.Dfm
             base.OnSizeChanged(w, h, oldw, oldh);
             Rect = h / 2;
         }
-        public void Pause()
-        {
-            Thread.Runable = false;
-        }
-        public void Resume()
-        {
-            Thread.Runable = true;
-        }
+        public void Pause() => Thread.Runable = false;
+        public void Resume() => Thread.Runable = true;
         public void AddDanmaku(LiveDanmuModel danmaku)
         {
             try
             {
-                if (danmaku.type == LiveDanmuTypes.Danmu && DanmakuType == DanmakuType.Live)
-                    DanmuMsgModels.Add(danmaku.value);
+                if (danmaku.Type == LiveDanmuTypes.Danmu && DanmakuType == DanmakuType.Live)
+                    DanmuMsgModels.Add(danmaku.Value);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("AddDanmaku" + ex.Message);
+                Debug.WriteLine("AddDanmaku:" + ex.ToString());
             }
         }
         public void SurfaceChanged(ISurfaceHolder holder, Format format, int width, int height) { }
@@ -85,7 +79,7 @@ namespace Xamarin.Dfm
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("SurfaceCreated" + ex.Message);
+                Debug.WriteLine("SurfaceCreated:" + ex.ToString());
             }
         }
         public void SurfaceDestroyed(ISurfaceHolder holder)

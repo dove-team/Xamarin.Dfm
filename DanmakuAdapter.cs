@@ -8,7 +8,7 @@ namespace Xamarin.Dfm
 {
     public sealed class DanmakuAdapter : JavaObject
     {
-        public DanmakuSurfaceView DanmakuView { get; set; }
+        public DanmakuSurfaceView DanmakuView { get; }
         public DanmakuAdapter(DanmakuSurfaceView danmakuSurfaceView)
         {
             DanmakuView = danmakuSurfaceView;
@@ -22,7 +22,7 @@ namespace Xamarin.Dfm
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("InitDanmu" + ex.Message);
+                Debug.WriteLine("InitDanmu:" + ex.ToString());
             }
         }
         public void ShowLiveDanmaku(LiveDanmuModel model)
@@ -54,15 +54,15 @@ namespace Xamarin.Dfm
         }
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
             try
             {
                 SetDanmakuState(DanmakuState.Pause);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("DanmakuAdapter-Dispose" + ex.Message);
+                Debug.WriteLine("DanmakuAdapter.Dispose:" + ex.ToString());
             }
+            base.Dispose(disposing);
         }
     }
 }

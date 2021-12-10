@@ -27,7 +27,7 @@ namespace Xamarin.Dfm.Extensions
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("GetResultsDeflate" + ex.Message);
+                Debug.WriteLine("GetResultsDeflate:" + ex.ToString());
                 return string.Empty;
             }
         }

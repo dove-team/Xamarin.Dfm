@@ -30,7 +30,8 @@ namespace Xamarin.Dfm
         {
             try
             {
-                if (buffer.Length < 16) { throw new ArgumentException(); }
+                if (buffer.Length < 16)
+                    throw new ArgumentException();
                 return new DanmakuProtocol()
                 {
                     PacketLength = EndianBitConverter.BigEndian.ToInt32(buffer, 0),
@@ -42,7 +43,7 @@ namespace Xamarin.Dfm
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("FromBuffer" + ex.Message);
+                Debug.WriteLine("FromBuffer:" + ex.ToString());
                 return default;
             }
         }

@@ -4,47 +4,47 @@ namespace Xamarin.Dfm.Model
 {
     public sealed class DanmakuModel
     {
-        public string text { get; set; }
+        public string Text { get; set; }
         /// <summary>
         /// 弹幕大小
         /// </summary>
-        public double size { get; set; }
+        public double Size { get; set; }
         /// <summary>
         /// 弹幕颜色
         /// </summary>
-        public Color color { get; set; }
+        public Color Color { get; set; }
         /// <summary>
         /// 弹幕出现时间
         /// </summary>
-        public double time { get; set; }
+        public double Time { get; set; }
         /// <summary>
         /// 弹幕发送时间
         /// </summary>
-        public string sendTime { get; set; }
+        public string SendTime { get; set; }
         /// <summary>
         /// 弹幕池
         /// </summary>
-        public string pool { get; set; }
+        public string Pool { get; set; }
         /// <summary>
         /// 弹幕发送人ID
         /// </summary>
-        public string sendID { get; set; }
+        public string SendID { get; set; }
         /// <summary>
         /// 弹幕ID
         /// </summary>
-        public string rowID { get; set; }
+        public string RowID { get; set; }
         /// <summary>
         /// 弹幕出现位置
         /// </summary>
-        public DanmakuLocation location { get; set; }
-        public DanmakuSite fromSite { get; set; }
-        public string source { get; set; }
+        public DanmakuLocation Location { get; set; }
+        public DanmakuSite FromSite { get; set; }
+        public string Source { get; set; }
         public int Speed { get; set; } = 8;
-        public int x { get; set; } = 0;
-        public int y { get; set; } = 0;
-        public bool enable { get; set; } = true;
-        public double displayTime { get; internal set; }
-        public double startpoint { get; internal set; }
-        public float w { get; set; }
+        public int X { get; set; } = 0;
+        public int Y { get; set; } = 0;
+        public bool Enable { get; set; } = true;
+        public double DisplayTime { get; internal set; }
+        public double StartPoint { get; internal set; }
+        public float W { get; set; }
     }
 }

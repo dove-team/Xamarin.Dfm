@@ -20,7 +20,8 @@ namespace Xamarin.Dfm
         {
             try
             {
-                string danmuStr = await HttpClient.GetResultsDeflate(new Uri(string.Format("https://api.bilibili.com/x/v1/dm/list.so?oid={0}", cid)));
+                var uri = new Uri($"https://api.bilibili.com/x/v1/dm/list.so?oid={cid}");
+                string danmuStr = await HttpClient.GetResultsDeflate(uri);
                 return ParseBiliBiliXml(danmuStr);
             }
             catch (Exception ex)
@@ -58,29 +59,29 @@ namespace Xamarin.Dfm
                             };
                             danmakus.Add(new DanmakuModel
                             {
-                                time = double.Parse(danmaku[0]),
-                                location = location,
-                                size = double.Parse(danmaku[2]),
-                                color = danmaku[3].ToColor(true),
-                                sendTime = danmaku[4],
-                                pool = danmaku[5],
-                                sendID = danmaku[6],
-                                rowID = danmaku[7],
-                                text = item.InnerText,
-                                source = item.OuterXml,
-                                fromSite = DanmakuSite.Bilibili
+                                Time = double.Parse(danmaku[0]),
+                                Location = location,
+                                Size = double.Parse(danmaku[2]),
+                                Color = danmaku[3].ToColor(true),
+                                SendTime = danmaku[4],
+                                Pool = danmaku[5],
+                                SendID = danmaku[6],
+                                RowID = danmaku[7],
+                                Text = item.InnerText,
+                                Source = item.OuterXml,
+                                FromSite = DanmakuSite.Bilibili
                             });
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine("ParseBiliBiliXml" + ex.Message);
+                            Debug.WriteLine("ParseBiliBiliXml:" + ex.ToString());
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("ParseBiliBiliXml" + ex.Message);
+                Debug.WriteLine("ParseBiliBiliXml:" + ex.ToString());
             }
             return danmakus;
         }

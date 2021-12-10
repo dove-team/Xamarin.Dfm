@@ -2,8 +2,8 @@
 {
     public sealed class LiveDanmuModel
     {
-        public LiveDanmuTypes type { get; set; }
-        public int viewer { get; set; }
-        public DanmuMsgModel value { get; set; }
+        public int Viewer { get; set; }
+        public LiveDanmuTypes Type { get; set; }
+        public DanmuMsgModel Value { get; set; }
     }
 }
