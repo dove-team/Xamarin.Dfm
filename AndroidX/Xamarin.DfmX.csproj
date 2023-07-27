@@ -17,7 +17,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v13.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v12.1</TargetFrameworkVersion>
     <AndroidUseAapt2>true</AndroidUseAapt2>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -47,15 +47,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Converter\BigEndianBitConverter.cs" />
+    <Compile Include="Converter\EndianBitConverter.cs" />
+    <Compile Include="Converter\LittleEndianBitConverter.cs" />
+    <Compile Include="Converter\SingleConverter.cs" />
+    <Compile Include="DanmakuAdapter.cs" />
+    <Compile Include="DanmakuParser.cs" />
+    <Compile Include="DanmakuProtocol.cs" />
+    <Compile Include="DanmakuSurfaceView.cs" />
+    <Compile Include="Extensions\Ext.cs" />
+    <Compile Include="Extensions\HttpClientEx.cs" />
+    <Compile Include="Model\DanmakuModel.cs" />
+    <Compile Include="Model\DanmuMsgModel.cs" />
+    <Compile Include="Model\Enums.cs" />
+    <Compile Include="Model\LiveDanmuModel.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewThread.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="README.md" />
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.5" />
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.4</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.3" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\strings.xml" />
